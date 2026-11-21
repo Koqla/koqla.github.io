@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sfida a Scopa</title>
+<meta name="description" content="Un amico ti ha sfidato a Scopa. Apri l'app e gioca contro di lui.">
+<meta property="og:title" content="Ti hanno sfidato a Scopa! 🃏">
+<meta property="og:description" content="Tocca per accettare la sfida e giocare online con il tuo amico.">
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: #0b0b0b; color: #fff; padding: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .card {
+    width: 100%; max-width: 420px; text-align: center; padding: 32px 24px;
+    background: linear-gradient(160deg, #1b5e20, #0d3b12); border-radius: 24px;
+  }
+  .cards { font-size: 56px; line-height: 1; }
+  h1 { font-size: 26px; margin: 16px 0 8px; }
+  p { color: rgba(255,255,255,.8); line-height: 1.5; margin: 0 0 20px; }
+  .code {
+    display: inline-block; font-size: 26px; letter-spacing: 4px; font-weight: 800;
+    background: rgba(0,0,0,.35); padding: 10px 18px; border-radius: 12px; margin-bottom: 20px;
+  }
+  a.btn {
+    display: block; padding: 16px; border-radius: 14px; font-weight: 800; font-size: 17px;
+    text-decoration: none; margin-top: 10px;
+  }
+  .primary { background: #ffc107; color: #000; }
+  .secondary { background: rgba(255,255,255,.12); color: #fff; }
+  .small { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 18px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="cards">🃏</div>
+  <h1>Ti hanno sfidato a Scopa!</h1>
+  <p>Apri Scopa per accettare la sfida e giocare online con il tuo amico.</p>
+  <div class="code" id="code">——</div>
+  <a class="btn primary" id="open" href="#">Apri Scopa e gioca</a>
+  <a class="btn secondary" id="store" href="#">Scarica Scopa gratis</a>
+  <p class="small" id="note">Se l'app non si apre da sola, scaricala e poi tocca di nuovo il link, oppure inserisci il codice in Amici → «Ho un codice».</p>
+</div>
+<script>
+  (function () {
+    var params = new URLSearchParams(location.search);
+    var code = (params.get('c') || '').toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 16);
+    var pkg = 'net.mevora.scopa.app';
+    var store = 'https://play.google.com/store/apps/details?id=' + pkg +
+      (code ? '&referrer=' + encodeURIComponent('sfida=' + code) : '');
+    document.getElementById('code').textContent = code ? code.toUpperCase() : '—';
+    document.getElementById('store').href = store;
+
+    var isAndroid = /Android/i.test(navigator.userAgent);
+    var openBtn = document.getElementById('open');
+    if (isAndroid) {
+      // Opens Scopa if installed; otherwise Chrome follows the fallback to the
+      // Play Store, which hands the code to the app on its first launch.
+      openBtn.href = 'intent://koqla.github.io/s/?c=' + encodeURIComponent(code) +
+        '#Intent;scheme=https;package=' + pkg +
+        ';S.browser_fallback_url=' + encodeURIComponent(store) + ';end';
+    } else {
+      openBtn.style.display = 'none';
+      document.getElementById('store').textContent = 'Scopa è disponibile su Android';
+      document.getElementById('note').textContent =
+        "Su iPhone l'app non è ancora disponibile. Da Android: installa Scopa e inserisci il codice in Amici → «Ho un codice».";
+    }
+  })();
+</script>
+</body>
+</html>
