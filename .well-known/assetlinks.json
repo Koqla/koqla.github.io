@@ -1,0 +1,14 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "net.mevora.scopa.app",
+      "sha256_cert_fingerprints": [
+        "CA:1F:9C:30:ED:AA:87:D2:C2:B5:F8:3F:C6:4E:27:6D:D1:9F:C8:BF:33:41:F6:99:D6:23:5C:23:EF:62:E6:09",
+        "E4:E0:78:1F:7A:44:53:64:31:F3:DC:96:18:7C:BC:07:50:C8:70:2D:B3:74:94:67:04:64:57:73:5D:79:5B:7C",
+        "1E:A9:42:AF:F6:50:F3:F6:54:4A:7E:63:7D:83:C3:03:7D:AD:97:6D:C3:3B:B9:A5:AC:2B:46:B4:FF:02:BA:D2"
+      ]
+    }
+  }
+]
